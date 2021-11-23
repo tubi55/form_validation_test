@@ -7,6 +7,7 @@ btnSubmit.addEventListener("click", function(e){
    if(!isEmail("email", 5)) e.preventDefault(); 
    if(!isCheck("gender")) e.preventDefault(); 
    if(!isCheck("hobby")) e.preventDefault(); 
+   if(!isSelect("edu")) e.preventDefault(); 
 }); 
 
 //text 인증함수 
@@ -74,6 +75,28 @@ function isCheck(name){
       var errMsg = document.createElement("p"); 
       errMsg.append("필수입력사항을 체크해주세요"); 
       inputs[0].closest("td").append(errMsg); 
+
+      return false; 
+   }
+}
+
+function isSelect(name){
+   var sel = form.querySelector(`[name=${name}]`); 
+   var sel_index = sel.options.selectedIndex; 
+   var val = sel.options[sel_index].value;  
+
+   if(val !==""){
+      var errMsgs = sel.closest("td").querySelectorAll("p"); 
+      if(errMsgs.length > 0) sel.closest("td").querySelector("p").remove(); 
+
+      return true; 
+   }else{
+      var errMsgs = sel.closest("td").querySelectorAll("p"); 
+      if(errMsgs.length > 0) sel.closest("td").querySelector("p").remove(); 
+
+      var errMsg = document.createElement("p"); 
+      errMsg.append("항목을 선택해 주세요"); 
+      sel.closest("td").append(errMsg); 
 
       return false; 
    }
